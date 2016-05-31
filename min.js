@@ -1,74 +1,42 @@
-// function fullScreen(element) {
-//   var newElement = document.createElement(element);
-//   newElement.style.height = '100vh';
-//   document.body.appendChild(newElement);
-//   return newElement;
-// }
-//
-// function input(inputType, DOMElement, callback) {
-//   DOMElement.addEventListener(inputType, function (event) {
-//     var x = event.clientX;
-//     var y = event.clientY;
-//     callback(DOMElement, x, y);
-//   });
-// }
-//
-// function output (element, x, y) {
-//   element.textContent = x + ', ' + y;
-//   element.style.backgroundColor = 'rgb(' + x + ', ' + y + ', 100)';
-// }
-//
-// input('mousemove', fullScreen('BODY'), output);
-//
-//
+$(document).ready(function(){
+  $(".submit").on("click",function(event){
+   event.preventDefault()
+   var userSearch = $(".userInput").val();
+       console.log(userSearch)
 
-// HeXCLock
-// document.ready(function() {
+  function createUrl(userSearch) {
+   var url = "https://www.googleapis.com/youtube/v3/search";
+   url += "?part=snippet";
+   // url += "&channelId=UC-QFhQGiB-WqOjRR98XZrkA";
+   url += "&q="+ userSearch;
+   url += "&type=video";
+   url += "&videoDuration=medium";
+   url +="&key=AIzaSyALpGtcMsFAZ5klXNKclSKJ6UM0QnsjoRM";
+   return url;
+  };
 
-  // function time() {
-  //   var date = new Date();
-  //   var hours = date.getHours();
-  //   var minutes = date.getMinutes();
-  //   var seconds = date.getSeconds();
-  //   var array = [hours, minutes, seconds].map(function(num) {
-  //     return num < 10 ? '0' + num: String(num);
-  //   });
-  //   hours = array[0]
-  //   minutes = array[1];
-  //   seconds = array [2];
-  //
-  //   return hours + minutes + seconds;
-  // }
-  //
-  // console.log(time());
+  function getVideos (url) {
+   $.get(url , function(data) {
+     console.log(data);
+     for (i=0; i < data.items.length; i++){
+       var item = data.items[i];
+       var videoId= item.id.videoId;
+       $(".container").append("<h2> Title: " + item.snippet.title + "</h2>");
+       // $(".container").append("<p> Description: " + item.snippet.description + "</p>");
+       createUniqueLink(videoId);
+     }
+   });
+  };
+  function createUniqueLink(videoId){
+   var videoUrl = "https://www.youtube.com/embed/";
+   videoUrl += videoId;
+   // console.log(videoUrl);
+   $(".container").append("<iframe type='text/html' width='640' height='390' class='video' src='" + videoUrl + "'frameborder='0' + allowfullscreen></iframe> <br></br>");
+  }
 
-  // function output(time) {
-  //   var color = '#' + time;
-  //   document.body.backgroundColor = color;
-  //   document.body.style.height = '100vh';
-  //   document.body.textContent = color;
-  //   document.body.style.color = 'white';
-  // }
-  //
-  // function startClick(callback) {
-  //   document.body.addEventListener('dblclick', function(event) {
-  //   callback();  //clearInterval(tick);
-  //   });
-  // }
-  //
-  // function stopClick(callback, name) {
-  //   document.body.addEventListener('click', function(event) {
-  //     callback(name);  //clearInterval(tick);
-  //   });
-  // }
-  //
-  // function init() {
-  //   var tick = setInterval(function() {
-  //     output(time())
-  //   },1000);
-  //   stopClick(clearInterval, tick);
-  //   startClick(init);
-  // }
-  //
-  // init();
-// })
+})
+
+  $('.submit').on('click', function() {
+    
+  })
+});

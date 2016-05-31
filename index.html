@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="style.css"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>TubeTeam</title>
 
     <!-- Bootstrap -->
@@ -22,11 +22,13 @@
 
 <body>
     <div class="container">
-        <form action="">
-            Search:
-            <input type="search" name="search" autofocus="" class="search">
-            <button type="submit">Submit </button>
-        </form>
+        <div class="row">
+            <form action="">
+                Search:
+                <input type="search" name="search" autofocus="" class="userInput">
+                <button class="submit" type="submit">Submit</button>
+            </form>
+        </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
